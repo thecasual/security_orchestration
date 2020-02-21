@@ -2,3 +2,4 @@ sec_bot.py
 .vscode
 env
 __pycache__
+orchestration.conf
