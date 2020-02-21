@@ -93,8 +93,11 @@ if __name__ == "__main__":
     if params.case == 'open':
         case.status = params.case
 
+    print(task_run)
+
     for run in task_run:
         py_run = importlib.import_module(run)
-        case.collection[run] = py_run.start(params.type)
+        print("Sending parameter {}".format(params.type))
+        case.collection[run] = py_run.start(params.data, params.type)
 
     print(case.collection)
