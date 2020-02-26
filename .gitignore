@@ -3,3 +3,4 @@ sec_bot.py
 env
 __pycache__
 orchestration.conf
+secrets.conf

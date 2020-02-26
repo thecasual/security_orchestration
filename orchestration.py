@@ -30,6 +30,7 @@ def parseparams():
     parser.add_argument("--data", "-d", help="Example : 1.1.1.1")
     parser.add_argument("--case", "-c", help="open, close")
     args = parser.parse_args()
+    
     return args
 
 def parsedata(data):
@@ -48,14 +49,21 @@ def parsedata(data):
     else:
         return 'None'
 
-
-
 if __name__ == "__main__":
 
     configfile = r'orchestration.conf'
+    secrets = r'secrets.conf'
 
     with open(configfile) as config:
         config = json.load(config)
+
+    with open(secrets) as s:
+        secret = json.load(s)
+
+    # flat
+
+    config = {**secret, **config}
+
 
     params = parseparams()
 
@@ -98,6 +106,6 @@ if __name__ == "__main__":
     for run in task_run:
         py_run = importlib.import_module(run)
         print("Sending parameter {}".format(params.type))
-        case.collection[run] = py_run.start(params.data, params.type)
+        case.collection[run] = py_run.start(params.data, params.type, config)
 
     print(case.collection)
